@@ -89,9 +89,8 @@ Implementation taken from the [Nuxt TypeScript example][example] created by [Joh
 
 ## Authors
 
-[Matthew Wagerfield][wagerfield]
-
-[John Lindquist][johnlindquist]
+* [Matthew Wagerfield][wagerfield]
+* [John Lindquist][johnlindquist]
 
 ## License
 
