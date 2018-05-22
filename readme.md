@@ -1,7 +1,7 @@
 # Nuxt TypeScript Module
 
 ```bash
-yarn add nuxt-typescript typescript ts-loader --dev
+yarn add nuxt-typescript --dev
 ```
 
 Add `nuxt-typescript` to the Nuxt config `modules` array:

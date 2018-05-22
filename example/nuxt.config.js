@@ -1,5 +1,5 @@
 module.exports = {
-  modules: ['../index'],
+  modules: ['nuxt-typescript'],
   build: {
     vendor: ['nuxt-property-decorator', 'vuex-class']
   }

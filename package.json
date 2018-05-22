@@ -26,15 +26,15 @@
     "format": "prettier --write '*.{js,json,md}' 'example/**/*.{js,json,ts,vue}'",
     "precommit": "yarn lint && yarn format"
   },
+  "dependencies": {
+    "ts-loader": "3.5.0",
+    "typescript": "^2.8.3"
+  },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-supermind": "^0.48.0",
     "husky": "^0.14.3",
     "prettier": "^1.12.1"
-  },
-  "peerDependencies": {
-    "ts-loader": "^4.3.0",
-    "typescript": "^2.8.3"
   }
 }
