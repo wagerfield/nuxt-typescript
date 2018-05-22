@@ -1,0 +1,4 @@
+node_modules
+.nuxt
+.DS_Store
+*.log
