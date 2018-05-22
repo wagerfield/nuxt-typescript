@@ -1,0 +1,37 @@
+{
+  "name": "nuxt-typescript",
+  "version": "0.0.0",
+  "description": "TypeScript module for Nuxt",
+  "homepage": "https://github.com/wagerfield/nuxt-typescript#readme",
+  "author": "Matthew Wagerfield <matthew@wagerfield.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wagerfield/nuxt-typescript.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wagerfield/nuxt-typescript/issues"
+  },
+  "keywords": [
+    "nuxt",
+    "typescript",
+    "module"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "lint": "eslint index.js",
+    "precommit": "yarn lint"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-supermind": "^0.48.0",
+    "husky": "^0.14.3"
+  },
+  "peerDependencies": {
+    "ts-loader": "^4.3.0",
+    "typescript": "^2.8.3"
+  }
+}
