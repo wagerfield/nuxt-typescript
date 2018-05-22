@@ -1,11 +1,6 @@
 module.exports = {
-  modules: [
-    '../index'
-  ],
+  modules: ['../index'],
   build: {
-    vendor: [
-      'nuxt-property-decorator',
-      'vuex-class'
-    ]
+    vendor: ['nuxt-property-decorator', 'vuex-class']
   }
 }

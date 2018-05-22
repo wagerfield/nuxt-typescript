@@ -37,7 +37,10 @@ Now you can use TypeScript in your Nuxt project:
 ```ts
 // core/utils.ts
 export function reverseString(value: string) {
-  return value.split('').reverse().join('')
+  return value
+    .split('')
+    .reverse()
+    .join('')
 }
 ```
 
@@ -64,17 +67,13 @@ import { reverseString } from '~/core/utils'
 
 @Component
 export default class extends Vue {
-
   input = 'TypeScript'
-
   @State title
-
   head() {
     return {
       title: this.title
     }
   }
-
   get reversed() {
     return reverseString(this.input)
   }

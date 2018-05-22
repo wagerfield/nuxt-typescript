@@ -2,14 +2,19 @@ function extendBuild(config) {
   const tsLoader = {
     loader: 'ts-loader',
     options: {
-      appendTsSuffixTo: [ /\.vue$/ ]
+      appendTsSuffixTo: [/\.vue$/]
     }
   }
 
   // Add TypeScript loader to Webpack rules
-  config.module.rules.push(Object.assign({
-    test: /((client|server)\.js)|(\.tsx?)$/
-  }, tsLoader))
+  config.module.rules.push(
+    Object.assign(
+      {
+        test: /((client|server)\.js)|(\.tsx?)$/
+      },
+      tsLoader
+    )
+  )
 
   // Add TypeScript loader for vue files
   for (const rule of config.module.rules) {
