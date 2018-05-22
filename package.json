@@ -1,6 +1,6 @@
 {
   "name": "nuxt-typescript",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "TypeScript module for Nuxt",
   "homepage": "https://github.com/wagerfield/nuxt-typescript#readme",
   "author": "Matthew Wagerfield <matthew@wagerfield.com>",
