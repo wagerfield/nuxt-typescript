@@ -3,5 +3,8 @@
   "extends": [
     "supermind",
     "prettier"
-  ]
+  ],
+  "settings": {
+    "import/core-modules": [ "vue", "vuex" ]
+  }
 }
