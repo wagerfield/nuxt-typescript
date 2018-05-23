@@ -9,7 +9,7 @@ Add `nuxt-typescript` to the Nuxt config `modules` array:
 ```js
 // nuxt.config.js
 module.exports = {
-  modules: ['nuxt-typescript']
+  modules: ["nuxt-typescript"]
 }
 ```
 
@@ -18,15 +18,21 @@ Configure `tsconfig.json` with the following settings:
 ```json
 {
   "compilerOptions": {
+    "jsx": "preserve",
+    "jsxFactory": "h",
     "target": "es2015",
     "module": "es2015",
+    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"],
-      "@/*": ["./*"]
+      "~/*": ["./*"]
     },
     "allowJs": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
     "removeComments": true,
+    "strictNullChecks": true,
     "experimentalDecorators": true
   }
 }
@@ -38,16 +44,16 @@ Now you can use TypeScript in your Nuxt project:
 // core/utils.ts
 export function reverseString(value: string) {
   return value
-    .split('')
+    .split("")
     .reverse()
-    .join('')
+    .join("")
 }
 ```
 
 ```ts
 // store/index.ts
 export const state = () => ({
-  title: 'Nuxt + TypeScript'
+  title: "Nuxt + TypeScript"
 })
 ```
 
