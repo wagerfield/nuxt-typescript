@@ -1,3 +1,3 @@
 export const state = () => ({
-  title: 'Nuxt + TypeScript'
+  title: "Nuxt + TypeScript"
 })

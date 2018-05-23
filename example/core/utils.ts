@@ -1,6 +1,6 @@
 export function reverseString(value: string) {
   return value
-    .split('')
+    .split("")
     .reverse()
-    .join('')
+    .join("")
 }
