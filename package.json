@@ -27,6 +27,8 @@
     "precommit": "yarn lint && yarn format"
   },
   "dependencies": {
+    "babel-loader": "^7.1.4",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
     "ts-loader": "3.5.0",
     "typescript": "^2.8.3"
   },
