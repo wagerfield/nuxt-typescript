@@ -1,20 +1,29 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "jsxFactory": "h",
     "target": "es2015",
     "module": "es2015",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "@/*": ["./*"]
     },
     "allowJs": true,
+    "sourceMap": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "removeComments": true,
     "strictNullChecks": true,
     "experimentalDecorators": true
-  }
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.tsx",
+    "./**/*.vue"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
