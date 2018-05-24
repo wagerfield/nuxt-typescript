@@ -1,10 +1,12 @@
 # Nuxt TypeScript Module
 
+Lightening fast type checking and linting with [TypeScript][typescript] and [TSLint][tslint].
+
 ```bash
 yarn add nuxt-typescript --dev
 ```
 
-Add `nuxt-typescript` to the Nuxt config `modules` array:
+Add `nuxt-typescript` to Nuxt's config:
 
 ```js
 // nuxt.config.js
@@ -19,22 +21,25 @@ Configure `tsconfig.json` with the following settings:
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "jsxFactory": "h",
     "target": "es2015",
     "module": "es2015",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "@/*": ["./*"]
     },
     "allowJs": true,
+    "sourceMap": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "removeComments": true,
     "strictNullChecks": true,
     "experimentalDecorators": true
-  }
+  },
+  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue"],
+  "exclude": ["node_modules"]
 }
 ```
 
@@ -73,14 +78,18 @@ import { reverseString } from '~/core/utils'
 
 @Component
 export default class extends Vue {
-  input = 'TypeScript'
-  @State title
+
+  @State public title: string
+
+  public input = 'TypeScript'
+
   head() {
     return {
       title: this.title
     }
   }
-  get reversed() {
+
+  get reversed(): string {
     return reverseString(this.input)
   }
 }
@@ -89,20 +98,60 @@ export default class extends Vue {
 
 **Check out the [working example](example).**
 
+## TSLint
+
+If you want to use [TSLint][tslint] to lint your TypeScript files, simply create a `tslint.json` file at the root of your project:
+
+```json
+{
+  "defaultSeverity": "warning",
+  "extends": ["tslint:latest"]
+}
+```
+
+It is recommended that you set `defaultSeverity` to "warning" so that linting errors can be distinguished from type errors.
+
+## Options
+
+Options can be passed to `nuxt-typescript` via a `typescript` object in the Nuxt config file:
+
+```js
+// nuxt.config.js
+module.exports = {
+  modules: ["nuxt-typescript"],
+  typescript: {
+    formatter: "default"
+  }
+}
+```
+
+| Option      | Type     | Default         | Description                                               |
+| ----------- | -------- | --------------- | --------------------------------------------------------- |
+| `tsconfig`  | `String` | "tsconfig.json" | Path to TypeScript config file.                           |
+| `tslint`    | `String` | "tslint.json"   | Path to TSLint config file.                               |
+| `formatter` | `String` | "codeframe"     | TSLint formatter to use. Either "default" or "codeframe". |
+
 ## Credits
 
-Implementation taken from the [Nuxt TypeScript example][example] created by [John Lindquist][johnlindquist].
+Thanks to [Evan You][evanyou] and [Kevin Petit][kevinpetit] for their work on the [Vue CLI TypeScript plugin][vue-cli-typescript] from which a lot of the implementation is based.
 
-## Authors
+Thanks to [John Lindquist][johnlindquist] for creating the [Nuxt TypeScript example][nuxt-typescript-example] that got this project started.
 
-* [Matthew Wagerfield][wagerfield]
-* [John Lindquist][johnlindquist]
+## Author
+
+[Matthew Wagerfield][wagerfield]
 
 ## License
 
 [MIT][mit]
 
-[example]: https://github.com/nuxt/nuxt.js/tree/dev/examples/typescript
+[nuxt]: https://nuxtjs.org
+[tslint]: https://palantir.github.io/tslint
+[typescript]: http://www.typescriptlang.org
+[nuxt-typescript-example]: https://github.com/nuxt/nuxt.js/tree/dev/examples/typescript
+[vue-cli-typescript]: https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript
+[evanyou]: https://github.com/yyx990803
 [johnlindquist]: https://github.com/johnlindquist
+[kevinpetit]: https://github.com/kvpt
 [wagerfield]: https://github.com/wagerfield
 [mit]: https://opensource.org/licenses/MIT
