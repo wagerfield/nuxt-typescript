@@ -1,7 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
-const createCacheConfig = require("./cache")
+// const createCacheConfig = require("./cache")
 
 module.exports = function NuxtTypeScript(moduleOptions) {
   // Build module options
@@ -62,7 +62,7 @@ module.exports = function NuxtTypeScript(moduleOptions) {
   const createRule = (test) => ({ test: test, use: [] })
 
   // Resolve .ts and .tsx file extensions
-  this.nuxt.options.extensions.push("ts", ".tsx")
+  this.nuxt.options.extensions.push("ts", "tsx")
 
   // Extend webpack config
   this.extendBuild(function extendBuild(config) {
@@ -83,10 +83,10 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     }
 
     // Add cache-loader
-    addLoader({
-      loader: "cache-loader",
-      options: createCacheConfig("ts-loader", tsconfig)
-    })
+    // addLoader({
+    //   loader: "cache-loader",
+    //   options: createCacheConfig("ts-loader", tsconfig)
+    // })
 
     // Add thread-loader
     if (useThreads) addLoader("thread-loader")
