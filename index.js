@@ -16,7 +16,7 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     moduleOptions
   )
 
-  // Flags
+  // Compiler flags
   const isProduction = process.env.NODE_ENV === "production"
   const useThreads = isProduction && options.parallel
 
