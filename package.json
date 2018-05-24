@@ -19,7 +19,8 @@
     "module"
   ],
   "files": [
-    "index.js"
+    "index.js",
+    "cache.js"
   ],
   "scripts": {
     "lint": "eslint .",
