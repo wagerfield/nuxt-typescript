@@ -11,8 +11,9 @@ import { reverseString } from "../core/utils"
 
 @Component
 export default class extends Vue {
-  input = "TypeScript"
-  get reversed() {
+  public input: string = "TypeScript"
+
+  get reversed(): string {
     return reverseString(this.input)
   }
 }

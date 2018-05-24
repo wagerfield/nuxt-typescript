@@ -9,24 +9,25 @@
 </template>
 
 <script lang="ts">
-import { State } from "vuex-class"
 import { Component, Vue } from "nuxt-property-decorator"
+import { State } from "vuex-class"
 import vReverse from "../components/reverse.vue"
+import vTsLang from "../components/ts-lang.vue"
 import vTsxFile from "../components/tsx-file"
 // import vTsxLang from "../components/tsx-lang.vue"
-import vTsLang from "../components/ts-lang.vue"
 
 @Component({
   components: {
     vReverse,
-    vTsxFile,
-    // vTsxLang,
-    vTsLang
+    vTsLang,
+    vTsxFile
+    // vTsxLang
   }
 })
 export default class extends Vue {
-  @State title: string
-  head() {
+  @State public title: string
+
+  public head() {
     return {
       title: this.title
     }
