@@ -125,11 +125,12 @@ module.exports = {
 }
 ```
 
-| Option      | Type     | Default         | Description                                               |
-| ----------- | -------- | --------------- | --------------------------------------------------------- |
-| `tsconfig`  | `String` | "tsconfig.json" | Path to TypeScript config file.                           |
-| `tslint`    | `String` | "tslint.json"   | Path to TSLint config file.                               |
-| `formatter` | `String` | "codeframe"     | TSLint formatter to use. Either "default" or "codeframe". |
+| Option      | Type      | Default         | Description                                               |
+| ----------- | --------- | --------------- | --------------------------------------------------------- |
+| `tsconfig`  | `String`  | "tsconfig.json" | Path to TypeScript config file.                           |
+| `tslint`    | `String`  | "tslint.json"   | Path to TSLint config file.                               |
+| `formatter` | `String`  | "codeframe"     | TSLint formatter to use. Either "default" or "codeframe". |
+| `parallel`  | `Boolean` | `true`          | Enable/disable `thread-loader` for production builds.     |
 
 ## Credits
 
