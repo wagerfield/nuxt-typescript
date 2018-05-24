@@ -1,65 +1,111 @@
-function extendBuild(config) {
-  // Resolve .ts and .tsx file extensions
-  config.resolve.extensions.push(".ts", ".tsx")
+const fs = require("fs")
+const path = require("path")
+const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
+const createCacheConfig = require("./cache")
 
-  // Add ts-loader for .ts files
-  config.module.rules.push({
-    test: /((client|server)\.js)|(\.ts)$/,
-    use: [
-      {
-        loader: "ts-loader",
-        options: {
-          appendTsSuffixTo: [/\.vue$/]
-        }
-      }
-    ]
+module.exports = function NuxtTypeScript(moduleOptions) {
+  // Build module options
+  const options = Object.assign(
+    {
+      tslint: "tslint.json",
+      tsconfig: "tsconfig.json",
+      formatter: "codeframe",
+      parallel: true
+    },
+    this.options.typescript,
+    moduleOptions
+  )
+
+  // Flags
+  const isProduction = process.env.NODE_ENV === "production"
+  const useThreads = isProduction && options.parallel
+
+  // Resolve config paths
+  const cwd = process.cwd()
+  const tslint = path.resolve(cwd, options.tslint)
+  const tsconfig = path.resolve(cwd, options.tsconfig)
+
+  // TypeScript checker plugin
+  const tsChecker = new ForkTsCheckerWebpackPlugin({
+    tsconfig: fs.existsSync(tsconfig) && tsconfig,
+    tslint: fs.existsSync(tslint) && tslint,
+    checkSyntacticErrors: useThreads,
+    formatter: options.formatter,
+    vue: true
   })
 
-  // Add ts-loader for .tsx files
-  config.module.rules.push({
-    test: /\.tsx$/,
-    use: [
+  // TypeScript loader factory
+  const tsLoader = (loaderOptions) => ({
+    loader: "ts-loader",
+    options: Object.assign(
       {
-        loader: "babel-loader",
-        options: {
-          plugins: ["transform-vue-jsx"]
-        }
+        configFile: tsconfig,
+        transpileOnly: true,
+        happyPackMode: useThreads
       },
-      {
-        loader: "ts-loader",
-        options: {
-          appendTsxSuffixTo: [/\.vue$/]
-        }
-      }
-    ]
+      loaderOptions
+    )
   })
 
-  // Add ts and tsx lang loaders to vue-loader
-  for (const rule of config.module.rules) {
-    if (rule.loader === "vue-loader") {
-      // Add loaders for lang="ts"
-      rule.options.loaders.ts = [
-        {
-          loader: "ts-loader"
-        }
-      ]
-      // Add loaders for lang="tsx"
-      rule.options.loaders.tsx = [
-        {
-          loader: "babel-loader",
-          options: {
-            plugins: ["transform-vue-jsx"]
-          }
-        },
-        {
-          loader: "ts-loader"
-        }
-      ]
+  // Babel loader factory
+  const babelLoader = (loaderOptions) => ({
+    loader: "babel-loader",
+    options: Object.assign(
+      {
+        plugins: ["transform-vue-jsx"]
+      },
+      loaderOptions
+    )
+  })
+
+  // Module rule factory
+  const createRule = (test) => ({ test: test, use: [] })
+
+  // Resolve .ts and .tsx file extensions
+  this.nuxt.options.extensions.push("ts", ".tsx")
+
+  // Extend webpack config
+  this.extendBuild(function extendBuild(config) {
+    config.resolve.extensions.push(".ts", ".tsx")
+    config.plugins.push(tsChecker)
+
+    // Create .ts and .tsx rules
+    const tsRule = createRule(/((client|server)\.js)|(\.ts)$/)
+    const tsxRule = createRule(/\.tsx$/)
+
+    // Add .ts and .tsx rules
+    config.module.rules.push(tsRule, tsxRule)
+
+    // Add loader to .ts and .tsx rules
+    const addLoader = (loader) => {
+      tsRule.use.push(loader)
+      tsxRule.use.push(loader)
     }
-  }
+
+    // Add cache-loader
+    addLoader({
+      loader: "cache-loader",
+      options: createCacheConfig("ts-loader", tsconfig)
+    })
+
+    // Add thread-loader
+    if (useThreads) addLoader("thread-loader")
+
+    // Add babel-loader
+    addLoader(babelLoader())
+
+    // Add ts-loader
+    tsRule.use.push(tsLoader({ appendTsSuffixTo: [/\.vue$/] }))
+    tsxRule.use.push(tsLoader({ appendTsxSuffixTo: [/\.vue$/] }))
+
+    // Add ts and tsx loaders to vue-loader
+    for (const rule of config.module.rules) {
+      if (rule.loader === "vue-loader") {
+        rule.options.loaders.ts = [babelLoader(), tsLoader()]
+        rule.options.loaders.tsx = [babelLoader(), tsLoader()]
+      }
+    }
+  })
 }
 
-module.exports = function nuxtTypeScript() {
-  this.nuxt.options.extensions.push("ts", ".tsx")
-  this.extendBuild(extendBuild)
-}
+module.exports.meta = require("./package.json")
