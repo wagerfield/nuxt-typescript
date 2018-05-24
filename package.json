@@ -27,16 +27,24 @@
     "precommit": "yarn lint && yarn format"
   },
   "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^7.1.4",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "cache-loader": "^1.2.2",
+    "fork-ts-checker-webpack-plugin": "^0.4.1",
+    "thread-loader": "^1.1.5",
     "ts-loader": "3.5.0",
-    "typescript": "^2.8.3"
+    "webpack": "^4.8.3"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-supermind": "^0.48.0",
     "husky": "^0.14.3",
-    "prettier": "^1.12.1"
+    "prettier": "^1.12.1",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.8.3"
   }
 }
