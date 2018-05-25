@@ -37,9 +37,7 @@ Configure `tsconfig.json` with the following settings:
     "removeComments": true,
     "strictNullChecks": true,
     "experimentalDecorators": true
-  },
-  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue"],
-  "exclude": ["node_modules"]
+  }
 }
 ```
 
