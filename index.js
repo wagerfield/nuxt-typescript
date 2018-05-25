@@ -1,7 +1,7 @@
 const fs = require("fs")
 const path = require("path")
 const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin")
-// const createCacheConfig = require("./cache")
+const createCacheConfig = require("./cache")
 
 module.exports = function NuxtTypeScript(moduleOptions) {
   // Build module options
@@ -83,10 +83,10 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     }
 
     // Add cache-loader
-    // addLoader({
-    //   loader: "cache-loader",
-    //   options: createCacheConfig("ts-loader", tsconfig)
-    // })
+    addLoader({
+      loader: "cache-loader",
+      options: createCacheConfig("ts-loader", tsconfig)
+    })
 
     // Add thread-loader
     if (useThreads) addLoader("thread-loader")
