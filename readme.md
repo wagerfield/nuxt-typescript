@@ -6,6 +6,12 @@ Lightening fast type checking and linting with [TypeScript][typescript] and [TSL
 yarn add nuxt-typescript --dev
 ```
 
+Make sure you have other dev dependencies:
+
+```bash
+yarn add typescript tslint --dev
+```
+
 Add `nuxt-typescript` to Nuxt's config:
 
 ```js
