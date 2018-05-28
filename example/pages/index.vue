@@ -14,7 +14,7 @@ import { State } from "vuex-class"
 import vReverse from "../components/reverse.vue"
 import vTsLang from "../components/ts-lang.vue"
 import vTsxFile from "../components/tsx-file"
-import vTsxLang from "../components/tsx-lang.tsx.vue"
+import vTsxLang from "../components/tsx-lang.vue"
 
 @Component({
   components: {
