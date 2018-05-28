@@ -38,14 +38,15 @@
     "ts-loader": "^3.5.0",
     "webpack": "^3.12.0"
   },
+  "peerDependencies": {
+    "tslint": "^5.10.0",
+    "typescript": "^2.8.3"
+  },
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-supermind": "^0.48.0",
     "husky": "^0.14.3",
-    "prettier": "^1.12.1",
-    "tslint": "^5.10.0",
-    "tslint-config-prettier": "^1.13.0",
-    "typescript": "^2.8.3"
+    "prettier": "1.12.0"
   }
 }
