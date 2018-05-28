@@ -3,7 +3,7 @@
 Lightening fast type checking and linting with [TypeScript][typescript] and [TSLint][tslint].
 
 ```bash
-yarn add nuxt-typescript --dev
+yarn add nuxt-typescript typescript tslint --dev
 ```
 
 Add `nuxt-typescript` to Nuxt's config:
