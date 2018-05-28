@@ -70,16 +70,14 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     config.plugins.push(tsChecker)
 
     // Create .ts and .tsx rules
-    const tsRule = createRule(/((client|server)\.js)|(\.ts)$/)
-    const tsxRule = createRule(/\.tsx$/)
+    const tsRule = createRule(/((client|server)\.js)|(\.tsx?)$/)
 
     // Add .ts and .tsx rules
-    config.module.rules.push(tsRule, tsxRule)
+    config.module.rules.push(tsRule)
 
     // Add loader to .ts and .tsx rules
     const addLoader = (loader) => {
       tsRule.use.push(loader)
-      tsxRule.use.push(loader)
     }
 
     // Add cache-loader
@@ -95,15 +93,31 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     addLoader(babelLoader())
 
     // Add ts-loader
-    tsRule.use.push(tsLoader({ appendTsSuffixTo: [/\.vue$/] }))
-    tsxRule.use.push(tsLoader({ appendTsxSuffixTo: [/\.vue$/] }))
+    tsRule.use.push(
+      tsLoader({
+        appendTsSuffixTo: [/(?<!tsx)\.vue$/],
+        appendTsxSuffixTo: [/tsx\.vue$/]
+      })
+    )
 
     // Add ts and tsx loaders to vue-loader
     for (const rule of config.module.rules) {
       if (rule.loader === "vue-loader") {
         rule.options.loaders = rule.options.loaders || {}
-        rule.options.loaders.ts = [babelLoader(), tsLoader()]
-        rule.options.loaders.tsx = [babelLoader(), tsLoader()]
+        rule.options.loaders.ts = [
+          babelLoader(),
+          tsLoader({
+            appendTsSuffixTo: [/(?<!tsx)\.vue$/],
+            appendTsxSuffixTo: [/tsx\.vue$/]
+          })
+        ]
+        rule.options.loaders.tsx = [
+          babelLoader(),
+          tsLoader({
+            appendTsSuffixTo: [/(?<!tsx)\.vue$/],
+            appendTsxSuffixTo: [/tsx\.vue$/]
+          })
+        ]
       }
     }
   })

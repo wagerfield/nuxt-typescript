@@ -2,7 +2,7 @@
   <div>
     <h1 v-text="title"/>
     <v-tsx-file/>
-    <!-- <v-tsx-lang/> -->
+    <v-tsx-lang/>
     <v-ts-lang/>
     <v-reverse/>
   </div>
@@ -14,14 +14,14 @@ import { State } from "vuex-class"
 import vReverse from "../components/reverse.vue"
 import vTsLang from "../components/ts-lang.vue"
 import vTsxFile from "../components/tsx-file"
-// import vTsxLang from "../components/tsx-lang.vue"
+import vTsxLang from "../components/tsx-lang.tsx.vue"
 
 @Component({
   components: {
     vReverse,
     vTsLang,
-    vTsxFile
-    // vTsxLang
+    vTsxFile,
+    vTsxLang
   }
 })
 export default class extends Vue {
