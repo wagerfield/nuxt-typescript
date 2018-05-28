@@ -25,7 +25,7 @@ module.exports = function NuxtTypeScript(moduleOptions) {
   const tslint = path.resolve(cwd, options.tslint)
   const tsconfig = path.resolve(cwd, options.tsconfig)
 
-  // TypeScript checker plugin
+  // Create TypeScript checker plugin
   const tsChecker = new ForkTsCheckerWebpackPlugin({
     tsconfig: fs.existsSync(tsconfig) && tsconfig,
     tslint: fs.existsSync(tslint) && tslint,
@@ -67,33 +67,30 @@ module.exports = function NuxtTypeScript(moduleOptions) {
   // Extend webpack config
   this.extendBuild(function extendBuild(config) {
     config.resolve.extensions.push(".ts", ".tsx")
+
+    // Add TypeScript checker plugin
     config.plugins.push(tsChecker)
 
-    // Create .ts and .tsx rules
+    // Create TypeScript rule
     const tsRule = createRule(/((client|server)\.js)|(\.tsx?)$/)
 
-    // Add .ts and .tsx rules
+    // Add TypeScript rule
     config.module.rules.push(tsRule)
 
-    // Add loader to .ts and .tsx rules
-    const addLoader = (loader) => {
-      tsRule.use.push(loader)
-    }
-
     // Add cache-loader
-    addLoader({
+    tsRule.use.push({
       loader: "cache-loader",
       options: createCacheConfig("ts-loader", tsconfig)
     })
 
     // Add thread-loader
-    if (useThreads) addLoader("thread-loader")
+    if (useThreads) tsRule.use.push("thread-loader")
 
     // Add babel-loader
-    addLoader(babelLoader())
+    tsRule.use.push(babelLoader())
 
     // Add ts-loader
-    tsRule.use.push(tsLoader({ appendTsxSuffixTo: [/.vue$/] }))
+    tsRule.use.push(tsLoader({ appendTsxSuffixTo: [/\.vue$/] }))
 
     // Add ts and tsx loaders to vue-loader
     for (const rule of config.module.rules) {
