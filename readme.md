@@ -21,8 +21,8 @@ Configure `tsconfig.json` with the following settings:
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "target": "es2015",
-    "module": "es2015",
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
@@ -30,6 +30,7 @@ Configure `tsconfig.json` with the following settings:
       "@/*": ["./*"]
     },
     "strict": true,
+    "sourceMap": true,
     "experimentalDecorators": true
   }
 }

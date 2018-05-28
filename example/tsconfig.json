@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "jsx": "preserve",
-    "target": "es2015",
-    "module": "es2015",
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
@@ -10,6 +10,7 @@
       "@/*": ["./*"]
     },
     "strict": true,
+    "sourceMap": true,
     "experimentalDecorators": true
   }
 }
