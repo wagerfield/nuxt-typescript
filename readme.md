@@ -29,13 +29,7 @@ Configure `tsconfig.json` with the following settings:
       "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "allowJs": true,
-    "sourceMap": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "removeComments": true,
-    "strictNullChecks": true,
+    "strict": true,
     "experimentalDecorators": true
   }
 }
