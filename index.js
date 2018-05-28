@@ -101,6 +101,7 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     // Add ts and tsx loaders to vue-loader
     for (const rule of config.module.rules) {
       if (rule.loader === "vue-loader") {
+        rule.options.loaders = rule.options.loaders || {}
         rule.options.loaders.ts = [babelLoader(), tsLoader()]
         rule.options.loaders.tsx = [babelLoader(), tsLoader()]
       }
