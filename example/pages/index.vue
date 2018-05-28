@@ -6,10 +6,10 @@
     <v-ts-lang/>
     <v-tsx-lang/>
     <ul>
-      <li><nuxt-link to="/file-ts">TS File</nuxt-link></li>
-      <li><nuxt-link to="/file-tsx">TSX File</nuxt-link></li>
-      <li><nuxt-link to="/lang-ts">TS Lang</nuxt-link></li>
-      <li><nuxt-link to="/lang-tsx">TSX Lang</nuxt-link></li>
+      <li><nuxt-link to="/file-ts">File with .ts extension</nuxt-link></li>
+      <li><nuxt-link to="/file-tsx">File with .tsx extension</nuxt-link></li>
+      <li><nuxt-link to="/lang-ts">Page with lang="ts"</nuxt-link></li>
+      <li><nuxt-link to="/lang-tsx">Page with lang="tsx"</nuxt-link></li>
     </ul>
     <v-reverse/>
   </div>
