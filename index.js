@@ -92,32 +92,19 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     // Add babel-loader
     addLoader(babelLoader())
 
+    const appendTsTo = {
+      appendTsSuffixTo: [/(?<!tsx)\.vue$/],
+      appendTsxSuffixTo: [/tsx\.vue$/]
+    }
     // Add ts-loader
-    tsRule.use.push(
-      tsLoader({
-        appendTsSuffixTo: [/(?<!tsx)\.vue$/],
-        appendTsxSuffixTo: [/tsx\.vue$/]
-      })
-    )
+    tsRule.use.push(tsLoader({ ...appendTsTo }))
 
     // Add ts and tsx loaders to vue-loader
     for (const rule of config.module.rules) {
       if (rule.loader === "vue-loader") {
         rule.options.loaders = rule.options.loaders || {}
-        rule.options.loaders.ts = [
-          babelLoader(),
-          tsLoader({
-            appendTsSuffixTo: [/(?<!tsx)\.vue$/],
-            appendTsxSuffixTo: [/tsx\.vue$/]
-          })
-        ]
-        rule.options.loaders.tsx = [
-          babelLoader(),
-          tsLoader({
-            appendTsSuffixTo: [/(?<!tsx)\.vue$/],
-            appendTsxSuffixTo: [/tsx\.vue$/]
-          })
-        ]
+        rule.options.loaders.ts = [babelLoader(), tsLoader({ ...appendTsTo })]
+        rule.options.loaders.tsx = [babelLoader(), tsLoader({ ...appendTsTo })]
       }
     }
   })
