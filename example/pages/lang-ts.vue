@@ -1,9 +1,9 @@
-<script lang="tsx">
+<script lang="ts">
 import Vue, { CreateElement, VNode } from "vue"
 
 export default Vue.extend({
   render(h: CreateElement): VNode {
-    return <h1>About</h1>
+    return h("h1", 'Page component with lang="ts"')
   }
 })
 </script>
