@@ -10,7 +10,8 @@ module.exports = function NuxtTypeScript(moduleOptions) {
       tslint: "tslint.json",
       tsconfig: "tsconfig.json",
       formatter: "codeframe",
-      parallel: true
+      parallel: true,
+      checker: true
     },
     this.options.typescript,
     moduleOptions
@@ -73,7 +74,9 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     config.resolve.extensions.push(".ts", ".tsx")
 
     // Add TypeScript checker plugin
-    config.plugins.push(tsChecker)
+    if (options.checker) {
+      config.plugins.push(tsChecker)
+    }
 
     // Create TypeScript rule
     const tsRule = createRule(/((client|server)\.js)|(\.tsx?)$/)
