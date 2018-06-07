@@ -52,7 +52,11 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     loader: "babel-loader",
     options: Object.assign(
       {
-        plugins: ["transform-vue-jsx"]
+        presets: [
+          [
+            require.resolve('babel-preset-vue-app')
+          ]
+        ]
       },
       loaderOptions
     )
