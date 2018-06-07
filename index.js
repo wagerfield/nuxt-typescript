@@ -67,11 +67,11 @@ module.exports = function NuxtTypeScript(moduleOptions) {
   const createRule = (test) => ({ test: test, use: [] })
 
   // Resolve .ts and .tsx file extensions
-  this.nuxt.options.extensions.push("ts", "tsx")
+  this.nuxt.options.extensions.unshift("ts", "tsx")
 
   // Extend webpack config
   this.extendBuild(function extendBuild(config) {
-    config.resolve.extensions.push(".ts", ".tsx")
+    config.resolve.extensions.unshift(".ts", ".tsx")
 
     // Add TypeScript checker plugin
     if (options.checker) {
@@ -82,7 +82,7 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     const tsRule = createRule(/((client|server)\.js)|(\.tsx?)$/)
 
     // Add TypeScript rule
-    config.module.rules.push(tsRule)
+    config.module.rules.unshift(tsRule)
 
     // Add cache-loader
     tsRule.use.push({
