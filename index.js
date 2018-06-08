@@ -53,11 +53,7 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     loader: "babel-loader",
     options: Object.assign(
       {
-        presets: [
-          [
-            require.resolve('babel-preset-vue-app')
-          ]
-        ]
+        presets: ["vue-app"]
       },
       loaderOptions
     )
