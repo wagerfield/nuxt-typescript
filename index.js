@@ -10,7 +10,8 @@ module.exports = function NuxtTypeScript(moduleOptions) {
       tslint: "tslint.json",
       tsconfig: "tsconfig.json",
       formatter: "codeframe",
-      parallel: true
+      parallel: true,
+      checker: true
     },
     this.options.typescript,
     moduleOptions
@@ -52,7 +53,7 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     loader: "babel-loader",
     options: Object.assign(
       {
-        plugins: ["transform-vue-jsx"]
+        presets: ["vue-app"]
       },
       loaderOptions
     )
@@ -62,20 +63,22 @@ module.exports = function NuxtTypeScript(moduleOptions) {
   const createRule = (test) => ({ test: test, use: [] })
 
   // Resolve .ts and .tsx file extensions
-  this.nuxt.options.extensions.push("ts", "tsx")
+  this.nuxt.options.extensions.unshift("ts", "tsx")
 
   // Extend webpack config
   this.extendBuild(function extendBuild(config) {
-    config.resolve.extensions.push(".ts", ".tsx")
+    config.resolve.extensions.unshift(".ts", ".tsx")
 
     // Add TypeScript checker plugin
-    config.plugins.push(tsChecker)
+    if (options.checker) {
+      config.plugins.push(tsChecker)
+    }
 
     // Create TypeScript rule
     const tsRule = createRule(/((client|server)\.js)|(\.tsx?)$/)
 
     // Add TypeScript rule
-    config.module.rules.push(tsRule)
+    config.module.rules.unshift(tsRule)
 
     // Add cache-loader
     tsRule.use.push({

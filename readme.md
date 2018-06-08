@@ -124,6 +124,7 @@ module.exports = {
 | `tslint`    | `String`  | "tslint.json"   | Path to TSLint config file.                               |
 | `formatter` | `String`  | "codeframe"     | TSLint formatter to use. Either "default" or "codeframe". |
 | `parallel`  | `Boolean` | `true`          | Enable/disable `thread-loader` for production builds.     |
+| `checker`   | `Boolean` | `true`          | Enable/disable the TypeScript checker webpack plugin.     |
 
 ## Credits
 
