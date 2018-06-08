@@ -31,6 +31,7 @@ Configure `tsconfig.json` with the following settings:
     },
     "strict": true,
     "sourceMap": true,
+    "noUnusedLocals": true,
     "experimentalDecorators": true
   }
 }

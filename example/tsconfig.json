@@ -11,6 +11,7 @@
     },
     "strict": true,
     "sourceMap": true,
+    "noUnusedLocals": true,
     "experimentalDecorators": true
   }
 }
