@@ -126,6 +126,7 @@ module.exports = {
 | `formatter` | `String`  | "codeframe"     | TSLint formatter to use. Either "default" or "codeframe". |
 | `parallel`  | `Boolean` | `true`          | Enable/disable `thread-loader` for production builds.     |
 | `checker`   | `Boolean` | `true`          | Enable/disable the TypeScript checker webpack plugin.     |
+| `babel`     | `Object`  | `{}`            | Customize Babel configuration.                            |
 
 ## Credits
 

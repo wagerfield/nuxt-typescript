@@ -31,7 +31,6 @@
     "babel-core": "^6.26.3",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^7.1.4",
-    "babel-preset-vue-app": "^2.0.0",
     "cache-loader": "^1.2.2",
     "fork-ts-checker-webpack-plugin": "^0.4.1",
     "thread-loader": "^1.1.5",

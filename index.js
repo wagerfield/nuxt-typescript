@@ -11,7 +11,8 @@ module.exports = function NuxtTypeScript(moduleOptions) {
       tsconfig: "tsconfig.json",
       formatter: "codeframe",
       parallel: true,
-      checker: true
+      checker: true,
+      babel: {}
     },
     this.options.typescript,
     moduleOptions
@@ -48,17 +49,6 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     )
   })
 
-  // Babel loader factory
-  const babelLoader = (loaderOptions) => ({
-    loader: "babel-loader",
-    options: Object.assign(
-      {
-        presets: ["vue-app"]
-      },
-      loaderOptions
-    )
-  })
-
   // Module rule factory
   const createRule = (test) => ({ test: test, use: [] })
 
@@ -67,6 +57,18 @@ module.exports = function NuxtTypeScript(moduleOptions) {
 
   // Extend webpack config
   this.extendBuild(function extendBuild(config) {
+    const nuxtBabelOptions = getNuxtBabelOptions(config)
+
+    // Babel loader factory
+    const babelLoader = () => ({
+      loader: "babel-loader",
+      options: Object.assign(
+        {},
+        nuxtBabelOptions,
+        options.babel
+      )
+    })
+
     config.resolve.extensions.unshift(".ts", ".tsx")
 
     // Add TypeScript checker plugin
@@ -107,3 +109,10 @@ module.exports = function NuxtTypeScript(moduleOptions) {
 }
 
 module.exports.meta = require("./package.json")
+
+function getNuxtBabelOptions(config) {
+  const babelRule = config.module.rules.find((rule) => {
+    return rule.loader === 'babel-loader'
+  })
+  return (babelRule || {}).options
+}
