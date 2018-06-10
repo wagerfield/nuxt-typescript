@@ -60,13 +60,9 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     const nuxtBabelOptions = getNuxtBabelOptions(config)
 
     // Babel loader factory
-    const babelLoader = () => ({
+    const babelLoader = (loaderOptions) => ({
       loader: "babel-loader",
-      options: Object.assign(
-        {},
-        nuxtBabelOptions,
-        options.babel
-      )
+      options: Object.assign({}, nuxtBabelOptions, loaderOptions, options.babel)
     })
 
     config.resolve.extensions.unshift(".ts", ".tsx")
@@ -112,7 +108,7 @@ module.exports.meta = require("./package.json")
 
 function getNuxtBabelOptions(config) {
   const babelRule = config.module.rules.find((rule) => {
-    return rule.loader === 'babel-loader'
+    return rule.loader === "babel-loader"
   })
   return (babelRule || {}).options
 }
