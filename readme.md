@@ -119,14 +119,14 @@ module.exports = {
 }
 ```
 
-| Option      | Type      | Default         | Description                                               |
-| ----------- | --------- | --------------- | --------------------------------------------------------- |
-| `tsconfig`  | `String`  | "tsconfig.json" | Path to TypeScript config file.                           |
-| `tslint`    | `String`  | "tslint.json"   | Path to TSLint config file.                               |
-| `formatter` | `String`  | "codeframe"     | TSLint formatter to use. Either "default" or "codeframe". |
-| `parallel`  | `Boolean` | `true`          | Enable/disable `thread-loader` for production builds.     |
-| `checker`   | `Boolean` | `true`          | Enable/disable the TypeScript checker webpack plugin.     |
-| `babel`     | `Object`  | `{}`            | Customize Babel configuration.                            |
+| Option      | Type      | Default         | Description                                                    |
+| ----------- | --------- | --------------- | -------------------------------------------------------------- |
+| `tsconfig`  | `String`  | "tsconfig.json" | Path to TypeScript config file.                                |
+| `tslint`    | `String`  | "tslint.json"   | Path to TSLint config file.                                    |
+| `formatter` | `String`  | "codeframe"     | TSLint formatter to use. Either "default" or "codeframe".      |
+| `parallel`  | `Boolean` | `true`          | Enable/disable `thread-loader` for production builds.          |
+| `checker`   | `Boolean` | `true`          | Enable/disable the TypeScript checker webpack plugin.          |
+| `babel`     | `Object`  | `null`          | Babel configuration options to be merged with Nuxt's defaults. |
 
 ## Credits
 

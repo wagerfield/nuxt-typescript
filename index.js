@@ -12,7 +12,7 @@ module.exports = function NuxtTypeScript(moduleOptions) {
       formatter: "codeframe",
       parallel: true,
       checker: true,
-      babel: {}
+      babel: null
     },
     this.options.typescript,
     moduleOptions
@@ -36,18 +36,9 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     vue: true
   })
 
-  // TypeScript loader factory
-  const tsLoader = (loaderOptions) => ({
-    loader: "ts-loader",
-    options: Object.assign(
-      {
-        configFile: tsconfig,
-        transpileOnly: true,
-        happyPackMode: useThreads
-      },
-      loaderOptions
-    )
-  })
+  // Rule finder
+  const findRule = (config, loader) =>
+    config.module.rules.find((rule) => rule.loader === loader)
 
   // Module rule factory
   const createRule = (test) => ({ test: test, use: [] })
@@ -56,21 +47,35 @@ module.exports = function NuxtTypeScript(moduleOptions) {
   this.nuxt.options.extensions.unshift("ts", "tsx")
 
   // Extend webpack config
-  this.extendBuild(function extendBuild(config) {
-    const nuxtBabelOptions = getNuxtBabelOptions(config)
+  this.extendBuild((config) => {
+    const nuxtVueRule = findRule(config, "vue-loader")
+    const nuxtBabelRule = findRule(config, "babel-loader")
+    const nuxtBabelOptions = (nuxtBabelRule || {}).options
 
     // Babel loader factory
-    const babelLoader = (loaderOptions) => ({
+    const babelLoader = () => ({
       loader: "babel-loader",
-      options: Object.assign({}, nuxtBabelOptions, loaderOptions, options.babel)
+      options: Object.assign({}, nuxtBabelOptions, options.babel)
     })
 
+    // TypeScript loader factory
+    const tsLoader = (loaderOptions) => ({
+      loader: "ts-loader",
+      options: Object.assign(
+        {
+          configFile: tsconfig,
+          transpileOnly: true,
+          happyPackMode: useThreads
+        },
+        loaderOptions
+      )
+    })
+
+    // Resolve .ts and .tsx file extensions
     config.resolve.extensions.unshift(".ts", ".tsx")
 
     // Add TypeScript checker plugin
-    if (options.checker) {
-      config.plugins.push(tsChecker)
-    }
+    if (options.checker) config.plugins.push(tsChecker)
 
     // Create TypeScript rule
     const tsRule = createRule(/((client|server)\.js)|(\.tsx?)$/)
@@ -94,21 +99,13 @@ module.exports = function NuxtTypeScript(moduleOptions) {
     tsRule.use.push(tsLoader({ appendTsxSuffixTo: [/\.vue$/] }))
 
     // Add ts and tsx loaders to vue-loader
-    for (const rule of config.module.rules) {
-      if (rule.loader === "vue-loader") {
-        rule.options.loaders = rule.options.loaders || {}
-        rule.options.loaders.ts = [babelLoader(), tsLoader()]
-        rule.options.loaders.tsx = [babelLoader(), tsLoader()]
-      }
+    if (nuxtVueRule) {
+      const loaders = nuxtVueRule.options.loaders || {}
+      nuxtVueRule.options.loaders = loaders
+      loaders.ts = [babelLoader(), tsLoader()]
+      loaders.tsx = [babelLoader(), tsLoader()]
     }
   })
 }
 
 module.exports.meta = require("./package.json")
-
-function getNuxtBabelOptions(config) {
-  const babelRule = config.module.rules.find((rule) => {
-    return rule.loader === "babel-loader"
-  })
-  return (babelRule || {}).options
-}
