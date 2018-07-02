@@ -66,6 +66,10 @@ module.exports = function NuxtTypeScript(moduleOptions) {
 
   // Extend webpack config
   this.extendBuild(function extendBuild(config) {
+    if(this.options.dev){
+      config.devtool = 'inline-source-map'
+    }
+    
     config.resolve.extensions.push(".ts", ".tsx")
 
     // Add TypeScript checker plugin
