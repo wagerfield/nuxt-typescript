@@ -99,7 +99,22 @@ If you want to use [TSLint][tslint] to lint your TypeScript files, simply create
 ```json
 {
   "defaultSeverity": "warning",
-  "extends": ["tslint:latest"]
+  "extends": [
+    "tslint:recommended"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**"
+    ]
+  },
+  "rules": {
+    "quotemark": [true, "single"],
+    "indent": [true, "spaces", 2],
+    "interface-name": false,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "no-consecutive-blank-lines": false
+  }
 }
 ```
 
