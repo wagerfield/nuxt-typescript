@@ -35,7 +35,7 @@
     "thread-loader": "^1.1.5",
     "ts-loader": "3.5.0",
     "tslint": "^5.10.0",
-    "typescript": "^2.9.1",
+    "typescript": "^3.0.1",
     "webpack": "3.12.0"
   },
   "devDependencies": {
